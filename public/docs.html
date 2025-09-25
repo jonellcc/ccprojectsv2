@@ -613,7 +613,7 @@
 										document.getElementById('request-count').textContent = data.count.toLocaleString();
 								})
 								.catch(() => {
-										document.getElementById('request-count').textContent = 'Error';
+										document.getElementById('request-count').textContent = `${data.request}`;
 								});
 				});
 		</script>
