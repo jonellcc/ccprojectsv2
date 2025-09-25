@@ -36,7 +36,7 @@ module.exports.onAPI = async (req, res) => {
 
       res.json({
         status: true,
-        bratImage: `${req.protocol}://${req.get('host')}/public/${filename}`,
+        bratImage: `${req.protocol}://${req.get('host')}/${filename}`,
         author: "Jonell Hutchin Magallanes"
       })
     } else {
