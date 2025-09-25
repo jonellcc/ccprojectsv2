@@ -424,12 +424,22 @@
 						resultDisplay.style.color = 'white';
 						copyResponseBtn.classList.add('hidden');
 
-						try {
-								const response = await fetch(fullRequestedUrl, { method: method });
-								const contentType = response.headers.get("content-type");
+									try {
+										const response = await fetch(fullRequestedUrl, { method: method });
+										const contentType = response.headers.get("content-type");
 
-								if (!response.ok) {
-										const errorDetails = await response.text();
+										if (!response.ok) {
+											const errorDetails = await response.text();
+											throw new Error(errorDetails);
+										}
+
+										if (contentType && contentType.startsWith("image/")) {
+											const blob = await response.blob();
+											const imageUrl = URL.createObjectURL(blob);
+											return `<img src="${imageUrl}" />`;
+										}
+
+										return await response.text();
 										resultDisplay.style.color = 'red';
 										resultDisplay.textContent = `Error: HTTP Status ${response.status}\n\nDetails: ${errorDetails.substring(0, 300)}...`;
 										return;
@@ -447,7 +457,7 @@
 										resultDisplay.style.color = 'white';
 										copyResponseBtn.classList.remove('hidden');
 								} else {
-										resultDisplay.textContent = `Response is not standard JSON/Text. Status: ${response.status}`;
+										resultDisplay.textContent = `This Response probably image response but status code is ${response.status}`;
 										resultDisplay.style.color = 'yellow';
 										copyResponseBtn.classList.add('hidden');
 								}
