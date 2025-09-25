@@ -4,7 +4,7 @@ module.exports.routes = {
   name: "YouTube Video Search",
   desc: "Search for videos on YouTube",
   category: "Search",
-  query: "?title=Toma no Bilao,
+  query: "?title=Toma no Bilao",
   usages: "/api/ytsearch",
   method: "get",
 };
