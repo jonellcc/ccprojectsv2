@@ -1,0 +1,38 @@
+const axios = require('axios');
+
+module.exports.routes = {
+  name: "Face Swap",
+  desc: "Swap faces between two images",
+  category: "Canvas",
+  query: "?image1=&image2=",
+  usages: "/api/faceswap",
+  method: "get",
+};
+
+module.exports.onAPI = async (req, res) => {
+  const image1Url = req.query.image1;
+  const image2Url = req.query.image2;
+
+  if (!image1Url || !image2Url) {
+    return res.status(400).json({ message: "Please provide both 'image1' and 'image2' URLs." });
+  }
+
+  const apiUrl = `https://api.siputzx.my.id/api/imgedit/faceswap?image1=${encodeURIComponent(image1Url)}&image2=${encodeURIComponent(image2Url)}`;
+
+  try {
+    const response = await axios.get(apiUrl);
+
+    if (response.data.status && response.data.data) {
+      const swappedImageUrl = response.data.data;
+
+      res.json({
+        swappedImageUrl: swappedImageUrl
+      });
+    } else {
+      res.status(500).json({ message: "Failed to perform face swap.", details: response.data });
+    }
+  } catch (error) {
+    console.error('Error calling Face Swap API:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
