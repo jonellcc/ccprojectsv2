@@ -610,10 +610,10 @@
 						fetch('/requests')
 								.then(response => response.json())
 								.then(data => {
-										document.getElementById('request-count').textContent = data.count.toLocaleString();
+										document.getElementById('request-count').textContent = data.request;
 								})
 								.catch(() => {
-										document.getElementById('request-count').textContent = `${data.request}`;
+										document.getElementById('request-count').textContent = data.requests;
 								});
 				});
 		</script>
