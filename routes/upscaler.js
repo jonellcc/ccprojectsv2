@@ -4,8 +4,8 @@ module.exports.routes = {
   name: "Image Upscaler",
   desc: "Upscale an image to a larger size",
   category: "Tools",
-  query: "?url={url}&scale={scale}",
-  usages: "/api/tools/upscale?url=https://example.com/image.jpg&scale=2",
+  query: "?url=&scale=",
+  usages: "/api/upscale",
   method: "get",
 };
 
