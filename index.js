@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 	next();
 });
 */
-await mongoose.connect(
+/*await mongoose.connect(
   "mongodb+srv://higgenbottomjonell1:vkpQv8WfnpC5oki6@poge.zu6a3xz.mongodb.net/?retryWrites=true&w=majority&appName=Poge",
   {}
 );
@@ -76,7 +76,7 @@ app.use(async (req, res, next) => {
   await requestDoc.save();
   io.emit('updateRequestCount', requestDoc.count);
   next();
-});
+});*/
 const installModule = (moduleName) => {
 	return new Promise((resolve, reject) => {
 		exec(`npm install ${moduleName}`, (error, stdout, stderr) => {
@@ -128,7 +128,7 @@ const loadRoutes = async () => {
 	await ensureModules(Array.from(requiredModules));
 };
 
-/*app.get('/requests', (req, res) => {
+app.get('/requests', (req, res) => {
 	fs.readFile(requestsFilePath, 'utf8', (err, data) => {
 		if (err) {
 			console.error('Error reading requests.txt:', err);
@@ -138,8 +138,8 @@ const loadRoutes = async () => {
 			res.json({ request: requestObj.count });
 		}
 	});
-});*/
-app.get('/requests', async (req, res) => {
+});
+/*app.get('/requests', async (req, res) => {
   try {
     const requestDoc = await RequestCounter.findOne();
     res.json({ request: requestDoc ? requestDoc.count : 0 });
@@ -147,7 +147,7 @@ app.get('/requests', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Error fetching request count' });
   }
-});
+});*/
 app.get("/stats", (req, res) => {
 		const totalMem = (os.totalmem() / (1024 ** 3)).toFixed(2) + " GB"
 		const freeMem = (os.freemem() / (1024 ** 3)).toFixed(2) + " GB"
