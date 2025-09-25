@@ -4,7 +4,7 @@ module.exports.routes = {
   name: "Gemini (Lite)",
   desc: "Interact with a Gemini model, optionally with an image",
   category: "AI",
-  query: "?prompt={q}&imgUrl={imageUrl}",
+  query: "?prompt=&imgUrl=",
   usages: "/api/ai/geminilite",
   method: "get",
 };
