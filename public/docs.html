@@ -424,22 +424,12 @@
 						resultDisplay.style.color = 'white';
 						copyResponseBtn.classList.add('hidden');
 
-									try {
-										const response = await fetch(fullRequestedUrl, { method: method });
-										const contentType = response.headers.get("content-type");
+						try {
+								const response = await fetch(fullRequestedUrl, { method: method });
+								const contentType = response.headers.get("content-type");
 
-										if (!response.ok) {
-											const errorDetails = await response.text();
-											throw new Error(errorDetails);
-										}
-
-										if (contentType && contentType.startsWith("image/")) {
-											const blob = await response.blob();
-											const imageUrl = URL.createObjectURL(blob);
-											return `<img src="${imageUrl}" />`;
-										}
-
-										return await response.text();
+								if (!response.ok) {
+										const errorDetails = await response.text();
 										resultDisplay.style.color = 'red';
 										resultDisplay.textContent = `Error: HTTP Status ${response.status}\n\nDetails: ${errorDetails.substring(0, 300)}...`;
 										return;
@@ -456,8 +446,8 @@
 										resultDisplay.textContent = `Response is Text:\n${text}`;
 										resultDisplay.style.color = 'white';
 										copyResponseBtn.classList.remove('hidden');
-								} else {
-										resultDisplay.textContent = `This Response probably image response but status code is ${response.status}`;
+			} else {
+										resultDisplay.textContent = `Response is not standard JSON/Text. Status: ${response.status}`;
 										resultDisplay.style.color = 'yellow';
 										copyResponseBtn.classList.add('hidden');
 								}
@@ -600,7 +590,7 @@
 	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 6l7 7" />
 	<circle cx="6.5" cy="17.5" r="3" stroke-width="2" />
 	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.3 15.7l-1.6 1.6" />
-</svg>`
+</svg>`,
 
 										};
 
