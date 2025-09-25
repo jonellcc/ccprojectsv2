@@ -331,6 +331,7 @@
 				}
 				async function executeApiRequest() {
 						const baseApiUrl = document.getElementById('playground-base-url').value;
+						const resultContainer = document.getElementById('playground-result-container');
 						const resultDisplay = document.getElementById('playground-result-display');
 						const copyResponseBtn = document.getElementById('copy-response-btn');
 						const requestedUrlTextarea = document.getElementById('requested-url-content');
@@ -338,6 +339,7 @@
 						const finalUrlWithParams = buildFinalUrl(baseApiUrl);
 						let fullRequestedUrl = finalUrlWithParams;
 						const hasProtocol = finalUrlWithParams.startsWith('http://') || finalUrlWithParams.startsWith('https://');
+
 						try {
 								if (!hasProtocol && finalUrlWithParams.startsWith('/')) {
 										const urlObj = new URL(finalUrlWithParams, window.location.origin);
@@ -356,37 +358,59 @@
 								resultDisplay.style.color = 'red';
 								return;
 						}
-						resultDisplay.textContent = 'Loading...';
+
+						resultDisplay.innerHTML = 'Loading...';
 						resultDisplay.style.color = 'white';
+						resultDisplay.style.whiteSpace = 'pre-wrap';
 						copyResponseBtn.classList.add('hidden');
+
 						try {
 								const response = await fetch(fullRequestedUrl, { method: method });
 								const contentType = response.headers.get("content-type");
+
 								if (!response.ok) {
 										const errorDetails = await response.text();
 										resultDisplay.style.color = 'red';
 										resultDisplay.textContent = `Error: HTTP Status ${response.status}\n\nDetails: ${errorDetails.substring(0, 300)}...`;
 										return;
 								}
+
 								if (contentType && contentType.includes("application/json")) {
 										const data = await response.json();
 										const prettyJson = JSON.stringify(data, null, 2);
 										resultDisplay.textContent = prettyJson;
 										resultDisplay.style.color = 'white';
+										resultDisplay.style.whiteSpace = 'pre-wrap';
 										copyResponseBtn.classList.remove('hidden');
+								} else if (contentType && contentType.startsWith("image/")) {
+										resultDisplay.innerHTML = `<img src="${fullRequestedUrl}" alt="API Image Response" style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 1rem;">`;
+										resultDisplay.style.whiteSpace = 'normal';
+										copyResponseBtn.classList.add('hidden');
+								} else if (contentType && contentType.startsWith("audio/")) {
+										resultDisplay.innerHTML = `<audio controls src="${fullRequestedUrl}" style="width: 100%; margin-top: 1rem;"></audio><br><p class="text-xs text-gray-400">Audio file loaded from API response.</p>`;
+										resultDisplay.style.whiteSpace = 'normal';
+										copyResponseBtn.classList.add('hidden');
+								} else if (contentType && contentType.startsWith("video/")) {
+										resultDisplay.innerHTML = `<video controls src="${fullRequestedUrl}" style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 1rem;"></video><br><p class="text-xs text-gray-400">Video file loaded from API response.</p>`;
+										resultDisplay.style.whiteSpace = 'normal';
+										copyResponseBtn.classList.add('hidden');
 								} else if (contentType && contentType.includes("text/")) {
 										const text = await response.text();
 										resultDisplay.textContent = `Response is Text:\n${text}`;
 										resultDisplay.style.color = 'white';
+										resultDisplay.style.whiteSpace = 'pre-wrap';
 										copyResponseBtn.classList.remove('hidden');
-			} else {
-										resultDisplay.textContent = `Response is not standard JSON/Text. Status: ${response.status}`;
+								} else {
+										const text = await response.text();
+										resultDisplay.textContent = `Response is of type: ${contentType || 'Unknown'}. Status: ${response.status}. Showing raw data:\n\n${text.substring(0, 500)}...`;
 										resultDisplay.style.color = 'yellow';
+										resultDisplay.style.whiteSpace = 'pre-wrap';
 										copyResponseBtn.classList.add('hidden');
 								}
 						} catch (error) {
 								resultDisplay.textContent = `Execution Failed: ${error.message}`;
 								resultDisplay.style.color = 'red';
+								resultDisplay.style.whiteSpace = 'pre-wrap';
 								copyResponseBtn.classList.add('hidden');
 						}
 				}
@@ -485,7 +509,9 @@
 														const fullUsage = `${api.usages}${api.query || ''}`;
 														const apiItem = document.createElement('div');
 														apiItem.className = 'p-4 rounded-lg bg-gray-800 border border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-300 animate-fade-in-up';
+														
 														apiItem.style.animationDelay = `${0.1 * (apiIndex + 1)}s`;
+														
 														apiItem.innerHTML = `
 																<h4 class="font-semibold text-white">${api.name}</h4>
 																<p class="text-sm text-gray-400 my-1">${api.desc}</p>
