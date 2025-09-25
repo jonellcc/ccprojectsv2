@@ -5,7 +5,7 @@ module.exports.routes = {
   desc: "Download YouTube videos as MP3 audio files",
   category: "Downloader",
   query: "?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  usages: "/api/audio?url=",
+  usages: "/api/audiomp3",
   method: "get",
 };
 
