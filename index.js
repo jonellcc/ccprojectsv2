@@ -18,7 +18,7 @@ const io = socketIo(server);
 app.use(compression());
 app.use(cors());
 const MASTER_SECRET = "jonell10";
-
+const mongoose = require('mongoose');
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 	console.log(`Request from IP: ${clientIp}, URL: ${req.originalUrl}`);
 	next();
 }, limiter);
-
+/*
 let requestCount = 0;
 const requestsFilePath = path.join(__dirname, 'requests.txt');
 if (fs.existsSync(requestsFilePath)) {
@@ -55,7 +55,28 @@ app.use((req, res, next) => {
 	io.emit('updateRequestCount', requestCount);
 	next();
 });
+*/
+await mongoose.connect(
+  "mongodb+srv://higgenbottomjonell1:vkpQv8WfnpC5oki6@poge.zu6a3xz.mongodb.net/?retryWrites=true&w=majority&appName=Poge",
+  {}
+);
 
+const requestSchema = new mongoose.Schema({
+  count: { type: Number, default: 0 }
+});
+const RequestCounter = mongoose.model('RequestCounter', requestSchema);
+
+let requestDoc = await RequestCounter.findOne();
+if (!requestDoc) {
+  requestDoc = await RequestCounter.create({ count: 0 });
+}
+
+app.use(async (req, res, next) => {
+  requestDoc.count++;
+  await requestDoc.save();
+  io.emit('updateRequestCount', requestDoc.count);
+  next();
+});
 const installModule = (moduleName) => {
 	return new Promise((resolve, reject) => {
 		exec(`npm install ${moduleName}`, (error, stdout, stderr) => {
@@ -107,7 +128,7 @@ const loadRoutes = async () => {
 	await ensureModules(Array.from(requiredModules));
 };
 
-app.get('/requests', (req, res) => {
+/*app.get('/requests', (req, res) => {
 	fs.readFile(requestsFilePath, 'utf8', (err, data) => {
 		if (err) {
 			console.error('Error reading requests.txt:', err);
@@ -117,6 +138,15 @@ app.get('/requests', (req, res) => {
 			res.json({ request: requestObj.count });
 		}
 	});
+});*/
+app.get('/requests', async (req, res) => {
+  try {
+    const requestDoc = await RequestCounter.findOne();
+    res.json({ request: requestDoc ? requestDoc.count : 0 });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error fetching request count' });
+  }
 });
 app.get("/stats", (req, res) => {
 		const totalMem = (os.totalmem() / (1024 ** 3)).toFixed(2) + " GB"
