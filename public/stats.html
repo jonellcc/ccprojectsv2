@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>System Stats | CC PROJECTS</title>
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+		<style>
+				.background {
+						position: fixed;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100vh;
+						background: linear-gradient(135deg, #1f2937, #111827);
+						overflow: hidden;
+						z-index: -1;
+						transition: background-color 1s ease-in-out;
+				}
+
+				.card {
+						background: rgba(31, 41, 55, 0.9);
+						backdrop-filter: blur(8px);
+						-webkit-backdrop-filter: blur(8px);
+						border-radius: 16px;
+						box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+						border: 1px solid rgba(75, 85, 99, 0.5);
+						transition: transform 0.3s ease, box-shadow 0.3s ease;
+						color: #f3f4f6;
+				}
+
+				.card:hover {
+						transform: translateY(-5px);
+						box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+				}
+
+				.status-indicator {
+						width: 10px;
+						height: 10px;
+						border-radius: 50%;
+				}
+		</style>
+</head>
+<body class="font-sans text-gray-100 bg-gray-900">
+
+		<div class="background"></div>
+
+		<div class="flex flex-col items-center justify-center min-h-screen relative z-10 p-6">
+				<div class="card p-8 w-full max-w-lg text-center">
+						<h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-6">System Stats</h1>
+						<div id="stats-container" class="space-y-4 text-left text-sm text-gray-400">
+								<p class="text-center text-gray-500">Loading system data...</p>
+						</div>
+				</div>
+		</div>
+
+		<script>
+				const icons = {
+						"OS": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h1a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 000-2H7zm3 0a1 1 0 000 2h3a1 1 0 000-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>`,
+						"Architecture": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg>`,
+						"Storage Room": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" /></svg>`,
+						"RAM": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7v10m-4-10v10m-4-10v10m-4-10v10" /></svg>`,
+						"Uptime System": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd" /></svg>`,
+						"Node.js Version": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"><path stroke="none" d="M0 0h24v24H0z"/><path d="M12 21.5l-4.5-2.5v-10l4.5 2.5 4.5-2.5v10zM12 2v20l4.5-2.5V4.5z"/></svg>`,
+						"System Status": `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
+				};
+
+				function renderStats(data) {
+						const container = document.getElementById('stats-container');
+						container.innerHTML = '';
+
+						for (const key in data) {
+								if (Object.prototype.hasOwnProperty.call(data, key) && key !== 'System Status') {
+										const value = data[key];
+										const icon = icons[key] || `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`;
+										const statItem = document.createElement('p');
+										statItem.className = 'flex items-center';
+										statItem.innerHTML = `${icon}<b>${key}:</b> <span class="font-light ml-2 text-gray-300">${value}</span>`;
+										container.appendChild(statItem);
+								}
+						}
+
+						const statusValue = data['System Status'];
+						const statusText = statusValue === 200 ? 'OK' : 'Error';
+						const statusColorClass = statusValue === 200 ? 'bg-green-500' : 'bg-red-500';
+						const statusIcon = icons['System Status'];
+						const statusItem = document.createElement('p');
+						statusItem.className = 'flex items-center';
+						statusItem.innerHTML = `${statusIcon}<b class="text-white">System Status:</b> <span class="font-light ml-2 flex items-center"><span class="status-indicator ${statusColorClass} mr-2"></span>${statusText} (${statusValue})</span>`;
+						container.appendChild(statusItem);
+				}
+
+				document.addEventListener('DOMContentLoaded', () => {
+						fetch('/stats')
+								.then(response => {
+										if (!response.ok) {
+												throw new Error(`HTTP error! status: ${response.status}`);
+										}
+										return response.json();
+								})
+								.then(data => {
+										renderStats(data);
+								})
+								.catch(error => {
+										const container = document.getElementById('stats-container');
+										container.innerHTML = `<p class="text-center text-red-400">Failed to fetch data: ${error.message}</p>`;
+								});
+				});
+		</script>
+
+</body>
+</html>

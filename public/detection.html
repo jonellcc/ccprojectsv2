@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Too Many Requests</title>
+		<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+		<style>
+				@keyframes spin {
+						from { transform: rotate(0deg); }
+						to { transform: rotate(360deg); }
+				}
+
+				@keyframes fade-in-up {
+						from { opacity: 0; transform: translateY(20px); }
+						to { opacity: 1; transform: translateY(0); }
+				}
+
+				@keyframes shooting-star {
+						0% {
+								transform: rotate(45deg) translateX(-100vw);
+								opacity: 0;
+						}
+						50% {
+								opacity: 1;
+						}
+						100% {
+								transform: rotate(45deg) translateX(100vw);
+								opacity: 0;
+						}
+				}
+
+				.animate-spin-slow {
+						animation: spin 5s linear infinite;
+				}
+
+				.animate-fade-in-up {
+						animation: fade-in-up 0.8s ease-out forwards;
+				}
+
+				.shooting-star {
+						position: absolute;
+						width: 200px;
+						height: 2px;
+						background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+						transform: rotate(45deg);
+						animation: shooting-star 10s ease-in-out infinite;
+						opacity: 0;
+				}
+
+				.shooting-star:nth-child(1) { top: 20%; left: -50px; animation-delay: 2s; }
+				.shooting-star:nth-child(2) { top: 40%; left: -100px; animation-delay: 5s; }
+				.shooting-star:nth-child(3) { top: 60%; left: -150px; animation-delay: 8s; }
+		</style>
+</head>
+<body class="bg-gray-900 text-gray-200 h-screen flex items-center justify-center p-6 font-sans overflow-hidden">
+		<div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900"></div>
+		<div class="shooting-star"></div>
+		<div class="shooting-star"></div>
+		<div class="shooting-star"></div>
+
+		<div class="relative bg-gray-800 shadow-2xl rounded-2xl p-8 md:p-12 max-w-xl text-center border-t border-blue-600 animate-fade-in-up z-10">
+				<div class="mb-8 flex justify-center">
+						<svg class="w-24 h-24 text-blue-500 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
+				</div>
+				<h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Too Many Requests</h1>
+				<p class="text-gray-400 mb-6 text-lg">
+						It appears you have made too many requests in a short period.
+						For security purposes, please wait a moment while we verify your activity.
+				</p>
+				<p class="text-gray-500 mb-2">Your IP: <span id="user-ip" class="font-bold text-gray-300">Loading...</span></p>
+				<p class="text-gray-500 mb-6">User Agent: <span id="user-agent" class="font-bold text-gray-300">Loading...</span></p>
+
+				<div class="flex items-center justify-center space-x-2">
+						<span class="text-xl md:text-2xl font-bold text-blue-500">
+								Please wait
+						</span>
+						<div id="countdown" class="text-4xl md:text-5xl font-bold text-white transition-transform duration-300">30</div>
+						<span class="text-xl md:text-2xl font-bold text-blue-500">
+								seconds
+						</span>
+				</div>
+		</div>
+
+		<script>
+				document.addEventListener('DOMContentLoaded', () => {
+						const userIpEl = document.getElementById('user-ip');
+						const userAgentEl = document.getElementById('user-agent');
+						const countdownEl = document.getElementById('countdown');
+						let countdown = 30;
+
+						fetch('https://api.ipify.org?format=json')
+								.then(response => response.json())
+								.then(data => {
+										userIpEl.textContent = data.ip;
+								})
+								.catch(() => {
+										userIpEl.textContent = 'Unable to fetch IP';
+								});
+
+						userAgentEl.textContent = navigator.userAgent;
+
+						const interval = setInterval(() => {
+								countdown--;
+								countdownEl.textContent = countdown;
+								if (countdown <= 0) {
+										clearInterval(interval);
+										countdownEl.textContent = 'Done!';
+								}
+						}, 1000);
+				});
+		</script>
+</body>
+</html>

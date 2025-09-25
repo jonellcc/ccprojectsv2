@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>404 - Page Not Found | CC PROJECTS API</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<style>
+				body {
+						overflow: hidden;
+				}
+
+				.starfield {
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						background: transparent;
+				}
+
+				.starfield:after {
+						content: "";
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						animation: starfield 200s linear infinite;
+						background-image:
+								radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 90px 150px, #fff, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 110px 20px, #eee, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 130px 60px, #fff, rgba(0,0,0,0)),
+								radial-gradient(2px 2px at 150px 180px, #ddd, rgba(0,0,0,0));
+						background-repeat: repeat;
+						background-size: 200px 200px;
+				}
+
+				@keyframes starfield {
+						0% { transform: translateY(0); }
+						100% { transform: translateY(200px); }
+				}
+
+				@keyframes question-pulse {
+						0%, 100% {
+								transform: scale(1) rotate(0deg);
+						}
+						50% {
+								transform: scale(1.1) rotate(5deg);
+						}
+				}
+
+				.question-mark {
+						animation: question-pulse 4s ease-in-out infinite;
+				}
+		</style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col items-center justify-center p-6 font-sans">
+
+		<div class="starfield"></div>
+
+		<div class="relative w-full max-w-lg mx-auto text-center z-10">
+				<div class="question-mark w-40 h-40 mx-auto mb-8 text-blue-400 drop-shadow-lg">
+						<svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 16h-2v-2h2v2zm2-8c0 2.2-2 2-2 4h-2c0-3 2-3 2-4 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.2 2-4 4-4s4 1.8 4 4z" />
+						</svg>
+				</div>
+
+				<div class="bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700">
+						<h1 class="text-7xl md:text-8xl font-extrabold text-blue-400">404</h1>
+						<p class="text-2xl md:text-3xl font-light text-gray-300 mt-4">Lost in Space</p>
+						<p class="text-gray-400 mt-4 mb-8">It seems you've wandered off into the void. The page you are looking for might have been removed or is temporarily unavailable.</p>
+						<a href="/" class="inline-block px-8 py-4 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition duration-300 transform hover:scale-105 shadow-lg">
+								Return to Base
+						</a>
+				</div>
+		</div>
+</body>
+</html>
