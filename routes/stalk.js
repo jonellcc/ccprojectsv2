@@ -83,7 +83,7 @@ module.exports.onAPI = async (req, res) => {
 
     res.json({
       status: true,
-      quoteImage: `${req.protocol}://${req.get("host")}/${filename}`,
+      imageUrl: `${req.protocol}://${req.get("host")}/${filename}`,
       author: "Jonell Hutchin Magallanes"
     })
   } catch (err) {
