@@ -18,7 +18,6 @@ const io = socketIo(server);
 app.use(compression());
 app.use(cors());
 const MASTER_SECRET = "jonell10";
-const mongoose = require('mongoose');
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -39,7 +38,7 @@ app.use((req, res, next) => {
 	console.log(`Request from IP: ${clientIp}, URL: ${req.originalUrl}`);
 	next();
 }, limiter);
-/*
+
 let requestCount = 0;
 const requestsFilePath = path.join(__dirname, 'requests.txt');
 if (fs.existsSync(requestsFilePath)) {
@@ -55,7 +54,7 @@ app.use((req, res, next) => {
 	io.emit('updateRequestCount', requestCount);
 	next();
 });
-*/
+
 /*await mongoose.connect(
   "mongodb+srv://higgenbottomjonell1:vkpQv8WfnpC5oki6@poge.zu6a3xz.mongodb.net/?retryWrites=true&w=majority&appName=Poge",
   {}
