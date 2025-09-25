@@ -4,8 +4,8 @@ module.exports.routes = {
   name: "Apple Music",
   desc: "Search for music on Apple Music",
   category: "Search",
-  query: "?query={title}&region={region}",
-  usages: "/api/applemusicsearch?query=kamusta&region=ph",
+  query: "?query=&region=",
+  usages: "/api/applemusicsearch",
   method: "get",
 };
 
