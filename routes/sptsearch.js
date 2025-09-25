@@ -4,7 +4,7 @@ module.exports.routes = {
   name: "Spotify",
   desc: "Search for music on Spotify",
   category: "Search",
-  query: "?query=",
+  query: "?q=",
   usages: "/api/spotifysearch",
   method: "get",
 };
