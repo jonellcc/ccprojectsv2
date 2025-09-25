@@ -108,9 +108,9 @@ module.exports.onAPI = async (req, res) => {
 
     const timestamp = Date.now()
     const fileName = `quotes-${timestamp}.jpg`
-    const outputPath = `../public/${fileName}`
+    const outputPath = `./public/${fileName}`
 
-    if (!fs.existsSync('../public')) {
+    if (!fs.existsSync('./public')) {
       fs.mkdirSync('../public', { recursive: true })
     }
 
@@ -118,7 +118,7 @@ module.exports.onAPI = async (req, res) => {
 
     res.json({
       status: true,
-      quoteImage: `${req.protocol}://${req.get('host')}/public/${fileName}`,
+      quoteImage: `${req.protocol}://${req.get('host')}/${fileName}`,
       author: "Jonell Hutchin Magallanes"
     })
   } catch (err) {
