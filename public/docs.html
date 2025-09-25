@@ -32,16 +32,14 @@
 						transform: translateY(-5px);
 						box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
 				}
-				.side-menu {
+			.side-menu {
 						transition: transform 0.3s ease-in-out;
 						transform: translateX(-100%);
-						/* FIXED: Set display to flex, direction to column, and removed overflow-y-auto from this element */
-						display: flex;
-						flex-direction: column;
+						/* FIXED: Removed flex properties, added overflow-y: auto */
+						overflow-y: auto; 
 				}
 				.side-menu.open {
-						transform: translateX(0);
-				}
+				transform: translateX(0);
 				/* NEW: Style for the scrollable API list content */
 				.api-list-scrollable {
 						flex-grow: 1; /* Allows the list to take up available space */
@@ -75,13 +73,16 @@
 				.api-category-button {
 						transition: background-color 0.2s ease-in-out;
 				}
+			     .hidden { display: none; }	
 				.api-category-content {
 						overflow: hidden;
 						max-height: 0;
 						transition: max-height 0.3s ease-in-out;
 				}
 				.api-category-content.active {
-						max-height: 500px;
+						/* FIXED: Set to 'none' to allow content to fully expand 
+						         and let the sidebar's overflow handle scrolling */
+						max-height: none;
 				}
 				.api-category-icon {
 						transition: transform 0.3s ease-in-out;
@@ -176,10 +177,10 @@
 						<path class="menu-line bottom-line" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>
 				</svg>
 		</button>
-		<div id="side-menu" class="side-menu fixed top-0 left-0 h-full w-64 p-6 bg-gray-800 shadow-xl z-40">
+	<div id="side-menu" class="side-menu fixed top-0 left-0 h-full w-64 p-6 bg-gray-800 shadow-xl z-40 overflow-y-auto">
 				<h2 class="text-2xl font-bold mb-4 text-white">API Categories</h2>
-				<div id="api-list" class="space-y-4 api-list-scrollable">
-				</div>
+				<div id="api-list" class="space-y-4">
+						</div>
 		</div>
 		<div id="main-content" class="main-content flex flex-col items-center justify-center min-h-screen relative z-10 p-6">
 				<div id="welcome-card" class="card p-8 w-full max-w-lg text-center animate-bounce-in">
