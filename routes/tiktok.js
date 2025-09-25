@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports.routes = {
 		name: "TikTok Video Search",
 		desc: "Search for TikTok videos based on keywords.",
-		category: "Utility",
+		category: "Search",
 		usages: "/api/tiktok/searchvideo",
 		query: "?keywords=",
 		method: "get",
