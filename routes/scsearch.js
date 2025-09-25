@@ -5,7 +5,7 @@ module.exports.routes = {
   desc: "Search for music on Soundcloud",
   category: "Search",
   query: "?query={q}",
-  usages: "/api/soundcloudsearch?query=c2 na red",
+  usages: "/api/soundcloudsearch",
   method: "get",
 };
 
