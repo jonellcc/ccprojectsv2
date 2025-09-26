@@ -43,7 +43,7 @@ module.exports.onAPI = async (req, res) => {
       method: 'POST',
       url: 'https://quillbot.com/api/raven/quill-chat/responses',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 11; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36',
+        'User-Agent': 'Mozilla/5.0',
         'Accept': 'text/event-stream',
         'Accept-Encoding': 'gzip, deflate, br, zstd',
         'Content-Type': 'application/json',
