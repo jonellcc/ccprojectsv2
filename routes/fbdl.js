@@ -27,13 +27,14 @@ module.exports.onAPI = async (req, res) => {
       downloadUrl = result.sd.url;
     }
 
-    if (downloadUrl && result.title) {
+    if (downloadUrl) {
+      const title = result.title || "Unknown Title";
       res.json({
-        title: result.title,
+        title: title,
         downloadUrl: downloadUrl
       });
     } else {
-      res.status(404).json({ message: "No downloadable link or title found for this video. Ensure the video is public." });
+      res.status(404).json({ message: "No downloadable link found for this video. Ensure the video is public." });
     }
 
   } catch (error) {
