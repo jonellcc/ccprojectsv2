@@ -29,14 +29,14 @@ module.exports.onAPI = async (req, res) => {
 
     const avatarData = (await axios.get(profilePicUrl, { responseType: "arraybuffer" })).data
     const fontBuffer = (await axios.get(fontlink, { responseType: "arraybuffer" })).data
-    const fontPath = "../public/Semi.ttf"
+    const fontPath = "./public/Semi.ttf"
 
     fs.writeFileSync("./public/avt.png", avatarData)
     fs.writeFileSync(fontPath, Buffer.from(fontBuffer))
 
     Canvas.registerFont(fontPath, { family: "Semi" })
 
-    const avatar = await Canvas.loadImage("../public/avt.png")
+    const avatar = await Canvas.loadImage("./public/avt.png")
     const canvas = Canvas.createCanvas(626, 352)
     const ctx = canvas.getContext("2d")
 
