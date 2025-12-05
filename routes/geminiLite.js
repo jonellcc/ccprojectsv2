@@ -18,7 +18,7 @@ module.exports.onAPI = async (req, res) => {
     return res.status(400).json({ message: "Please provide a 'prompt' (q) for the AI." });
   }
 
-  let apiUrl = `https://api.siputzx.my.id/api/ai/gemini-lite?prompt=${encodeURIComponent(prompt)}&model=${encodeURIComponent(model)}`;
+  let apiUrl = `https://api.siputzx.my.id/api/ai/gemini-lite?q=${encodeURIComponent(prompt)}&model=${encodeURIComponent(model)}`;
 
   if (imageUrl) {
     apiUrl += `&imgUrl=${encodeURIComponent(imageUrl)}`;
