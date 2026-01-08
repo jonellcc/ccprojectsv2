@@ -1,227 +1,294 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Jonell Hutchin Magallanes | Portfolio</title>
-		<link rel="icon" href="https://files.catbox.moe/kdqa0t.png" type="image/x-icon">
-		<script src="https://cdn.tailwindcss.com"></script>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-		<style>
-				@keyframes rocketLaunch {
-						0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
-						50% { transform: translateY(-150px) scale(1.2) rotate(-5deg); opacity: 1; }
-						100% { transform: translateY(-800px) scale(0.5) rotate(10deg); opacity: 0; }
-				}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonell Hutchin Magallanes | Portfolio CC PROJECTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-cream: #f4f1ea;
+            --card-bg: #f9f7f2;
+            --felt-blue: #a2c2e1;
+            --felt-grey: #cfd8dc;
+            --text-main: #5d574f;
+            --text-light: #8e867a;
+        }
 
-				.rocket {
-						position: absolute;
-						bottom: 50px;
-						left: 50%;
-						transform: translateX(-50%);
-						width: 70px;
-						opacity: 0;
-						transition: all 0.5s ease-in-out;
-						z-index: 20;
-				}
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-				.animated-gradient {
-						background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #ec4899);
-						background-size: 300% 300%;
-						animation: gradient-animation 15s ease infinite;
-				}
+        body {
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-cream);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
 
-				@keyframes gradient-animation {
-						0% { background-position: 0% 50%; }
-						50% { background-position: 100% 50%; }
-						100% { background-position: 0% 50%; }
-				}
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-				#particles-js {
-						position: absolute;
-						width: 100%;
-						height: 100%;
-						top: 0;
-						left: 0;
-						z-index: 1;
-				}
+        .shape {
+            position: absolute;
+            background: white;
+            filter: blur(40px);
+            opacity: 0.6;
+            border-radius: 45% 55% 70% 30% / 30% 40% 60% 70%;
+            animation: float 20s infinite alternate ease-in-out;
+        }
 
-				.scroll-reveal {
-						opacity: 0;
-						transform: translateY(50px);
-						transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-				}
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--felt-blue);
+            top: -10%;
+            left: -10%;
+        }
 
-				.scroll-reveal.visible {
-						opacity: 1;
-						transform: translateY(0);
-				}
+        .shape:nth-child(2) {
+            width: 250px;
+            height: 250px;
+            background: #fce4ec;
+            bottom: 10%;
+            right: -5%;
+            animation-duration: 25s;
+            animation-delay: -5s;
+        }
 
-				.nav-link {
-						transition: color 0.3s, transform 0.3s;
-				}
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            background: var(--felt-grey);
+            bottom: -5%;
+            left: 20%;
+            animation-duration: 18s;
+        }
 
-				.nav-link:hover {
-						transform: translateY(-2px);
-				}
-		</style>
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(50px, 100px) rotate(90deg) scale(1.1); }
+            100% { transform: translate(-20px, 50px) rotate(180deg) scale(1); }
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 
+                20px 20px 60px #d9d6cf,
+                -20px -20px 60px #ffffff;
+            border: 8px solid #fff;
+            animation: popUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px;
+            position: relative;
+            padding: 5px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 8px 8px 15px rgba(0,0,0,0.05);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            box-shadow: 
+                inset 6px 6px 10px rgba(0,0,0,0.2);
+            border: 4px solid var(--felt-grey);
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-align: left;
+            margin: 25px 0 10px 10px;
+            color: #7a9cb9;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .api-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--felt-blue);
+            color: #4a6a8a;
+            padding: 16px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 
+                8px 8px 20px rgba(162, 194, 225, 0.6),
+                inset 4px 4px 8px rgba(255,255,255,0.6);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .api-btn:active {
+            transform: scale(0.96);
+            box-shadow: inset 6px 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 25px;
+            margin-bottom: 10px;
+            text-align: left;
+            box-shadow: inset 2px 2px 10px rgba(0,0,0,0.02);
+            border: 2px solid #f0efeb;
+        }
+
+        .info-card h4 {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .info-card p {
+            margin: 4px 0 0;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: var(--felt-grey);
+            padding: 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #546e7a;
+            box-shadow: 
+                4px 4px 10px rgba(0,0,0,0.05),
+                inset 2px 2px 4px rgba(255,255,255,0.4);
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-item {
+            background: #fff;
+            aspect-ratio: 1/1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            text-decoration: none;
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-item:hover {
+            background: var(--felt-blue);
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-gray-900 text-white font-sans">
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
 
-		<audio id="background-audio" loop>
-				<source src="https://files.catbox.moe/hihqyz.mp3" type="audio/mp3">
-		</audio>
+    <div class="container">
+        <div class="avatar-container">
+            <img src="https://graph.facebook.com/100036956043695/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" alt="Jonell" class="avatar-img">
+        </div>
+        
+        <h1>Jonell Hutchin Magallanes</h1>
+        <p class="subtitle">Backend Developer Information System Student</p>
 
-		<header class="bg-gray-800 shadow-xl fixed w-full z-20 animate__animated animate__fadeInDown rounded-b-2xl">
-				<div class="container mx-auto px-6 py-4 flex justify-between items-center">
-						<a href="#" class="text-3xl font-extrabold text-blue-400 hover:text-blue-300 transition-all duration-300 transform hover:scale-110">:></a>
-						<nav>
-								<ul class="flex space-x-6 text-lg">
-										<li><a href="#about" class="text-gray-300 hover:text-blue-400 nav-link font-medium">About</a></li>
-										<li><a href="#education" class="text-gray-300 hover:text-blue-400 nav-link font-medium">Education</a></li>
-										<li><a href="#skills" class="text-gray-300 hover:text-blue-400 nav-link font-medium">Skills</a></li>
-										<li><a href="#contact" class="text-gray-300 hover:text-blue-400 nav-link font-medium">Contact</a></li>
-								</ul>
-						</nav>
-				</div>
-		</header>
+        <a href="/docs" class="api-btn">
+            <i class="fas fa-rocket"></i> REST API
+        </a>
 
-		<section id="about" class="relative min-h-screen flex items-center justify-center text-center pt-24 pb-32 overflow-hidden">
-				<div id="particles-js" class="absolute inset-0"></div>
-				<div class="container mx-auto relative z-10 p-6">
-						<div class="scroll-reveal">
-								<img src="https://graph.facebook.com/61579714256367/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662"
-										class="w-40 h-40 rounded-full mx-auto border-4 border-blue-400 shadow-2xl transition-transform duration-500 hover:scale-105 animate__animated animate__zoomIn" alt="Profile Picture">
-								<h2 class="text-5xl md:text-6xl font-extrabold mt-6 text-white animate__animated animate__zoomIn">
-										<span class="animated-gradient bg-clip-text text-transparent">Hello! I'm Jonell Hutchin Magallanes</span>
-								</h2>
-								<p class="text-xl md:text-2xl mt-4 text-gray-300 animate__animated animate__fadeInUp animate__delay-1s">
-										Web Developer, API Enthusiast & Video Editor
-								</p>
-								<div class="mt-10 flex justify-center space-x-4">
-										<button id="api-btn" class="px-8 py-4 rounded-full text-blue-500 bg-white hover:bg-gray-200 transition-all duration-300 shadow-xl transform hover:scale-105">
-												Explore My API
-										</button>
-										<a href="#contact" class="px-8 py-4 rounded-full border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300 shadow-xl transform hover:scale-105">
-												Let's Connect
-										</a>
-								</div>
-								<img id="rocket" class="rocket w-12 md:w-16" src="https://files.catbox.moe/7ku5mc.png" alt="Rocket">
-						</div>
-				</div>
-		</section>
+        <div class="section-title">Education Background</div>
+        <div class="info-card">
+            <h4>I Tech Bago City College (Current)</h4>
+            <p>Bachelor of Science Information System</p>
+        </div>
+        <div class="info-card">
+            <h4>Senior High - San Enrique Polytechnic Academy Inc.</h4>
+            <p>TVL ( Technical Vocational Livelihood )</p>
+        </div>
 
-		<section id="education" class="bg-gray-800 py-20 text-center">
-				<div class="container mx-auto p-6 scroll-reveal">
-						<h2 class="text-4xl md:text-5xl font-bold text-blue-400">Education</h2>
-						<p class="text-lg text-gray-400 mt-4">A quick look at my academic journey.</p>
-						<div class="mt-12 grid md:grid-cols-2 gap-8">
-								<div class="bg-gray-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-										<h3 class="font-semibold text-2xl text-white">I Tech Bago City College Campus</h3>
-										<p class="text-md text-gray-400 mt-2">Bachelor of System Information (BSIS)</p>
-										<p class="text-sm text-gray-500 mt-1 italic">Current School</p>
-								</div>
-								<div class="bg-gray-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-										<h3 class="font-semibold text-2xl text-white">San Enrique Polytechnic Academy Inc.</h3>
-										<p class="text-md text-gray-400 mt-2">High School Graduate</p>
-										<p class="text-sm text-gray-500 mt-1 italic">Graduated</p>
-								</div>
-						</div>
-				</div>
-		</section>
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-grid">
+            <div class="skill-tag">HTML / CSS</div>
+            <div class="skill-tag">Database (SQL)</div>
+            <div class="skill-tag">Node.js</div>
+            <div class="skill-tag">PHP</div>
+        </div>
 
-		<section id="skills" class="bg-gray-900 py-20 text-center">
-				<div class="container mx-auto p-6 scroll-reveal">
-						<h2 class="text-4xl md:text-5xl font-bold text-blue-400">Skills</h2>
-						<p class="text-lg text-gray-400 mt-4">Tools and technologies I'm learning and using.</p>
-						<div class="flex flex-wrap justify-center gap-8 mt-12">
-								<div class="bg-gray-800 p-6 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 flex flex-col items-center">
-										<img src="https://cdn-icons-png.flaticon.com/128/732/732212.png" class="w-20 h-20" alt="HTML5 Icon">
-										<span class="mt-4 text-sm text-gray-300 font-medium">Frontend</span>
-								</div>
-								<div class="bg-gray-800 p-6 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 flex flex-col items-center">
-										<img src="https://cdn-icons-png.flaticon.com/128/919/919825.png" class="w-20 h-20" alt="CSS3 Icon">
-										<span class="mt-4 text-sm text-gray-300 font-medium">Nodejs</span>
-								</div>
-								<div class="bg-gray-800 p-6 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 flex flex-col items-center">
-										<img src="https://cdn-icons-png.flaticon.com/128/5968/5968350.png" class="w-20 h-20" alt="Javascript Icon">
-										<span class="mt-4 text-sm text-gray-300 font-medium">Python</span>
-								</div>
-								<div class="bg-gray-800 p-6 rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105 flex flex-col items-center">
-										<img src="https://files.catbox.moe/ewoxu2.jpeg" class="w-20 h-20 rounded-lg" alt="API Icon">
-										<span class="mt-4 text-sm text-gray-300 font-medium">Geometry Dssh</span>
-								</div>
-						</div>
-				</div>
-		</section>
+        <div class="section-title">Let's Connect</div>
+        <div class="social-grid">
+            <a href="https://www.facebook.com/hutchingdcc10" class="social-item"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://m.me/100036956043695" class="social-item"><i class="fab fa-facebook-messenger"></i></a>
+            <a href="https://discord.com/users/910196206414753792" class="social-item"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/jonellcc" class="social-item"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
 
-		<section id="contact" class="bg-gray-800 py-20 text-center">
-				<div class="container mx-auto p-6 scroll-reveal">
-						<h2 class="text-4xl md:text-5xl font-bold text-blue-400">Contact</h2>
-						<p class="text-lg text-gray-400 mt-4">Let's connect and build something great together!</p>
-						<div class="flex justify-center space-x-6 mt-12">
-								<a href="https://www.facebook.com/profile.php?id=61579714256367" target="_blank" class="hover:scale-125 transition-transform duration-300 bg-gray-700 p-4 rounded-full shadow-lg" aria-label="Facebook Profile">
-										<img src="https://files.catbox.moe/gl8yme.png" class="w-12 h-12" alt="Facebook Icon">
-								</a>
-								<a href="https://www.instagram.com/jonelledits10" target="_blank" class="hover:scale-125 transition-transform duration-300 bg-gray-700 p-4 rounded-full shadow-lg" aria-label="Instagram Profile">
-										<img src="https://files.catbox.moe/69xtpa.png" class="w-12 h-12" alt="Instagram Icon">
-								</a>
-								<a href="https://github.com/jonellcc" target="_blank" class="hover:scale-125 transition-transform duration-300 bg-gray-700 p-4 rounded-full shadow-lg" aria-label="GitHub Profile">
-										<img src="https://files.catbox.moe/7sg4m9.png" class="w-12 h-12" alt="GitHub Icon">
-								</a>
-						</div>
-				</div>
-		</section>
-
-		<footer class="bg-gray-900 text-gray-500 text-center py-6">
-				<div class="container mx-auto p-6">
-						<p>&copy; 2025 Jonell Hutchin Magallanes. All rights reserved.</p>
-				</div>
-		</footer>
-
-		<script>
-				document.addEventListener("DOMContentLoaded", function() {
-						const observer = new IntersectionObserver((entries) => {
-								entries.forEach(entry => {
-										if (entry.isIntersecting) {
-												entry.target.classList.add('visible');
-										}
-								});
-						}, {
-								threshold: 0.1
-						});
-						document.querySelectorAll('.scroll-reveal').forEach(section => {
-								observer.observe(section);
-						});
-
-						particlesJS("particles-js", {
-								"particles": {
-										"number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-										"color": { "value": "#ffffff" },
-										"shape": { "type": "star" },
-										"opacity": { "value": 0.5, "random": true },
-										"size": { "value": 3, "random": true },
-										"move": { "enable": true, "speed": 1.5 }
-								}
-						});
-
-						document.getElementById("api-btn").addEventListener("click", function() {
-								this.innerHTML = "Launching...";
-								const rocket = document.getElementById("rocket");
-								rocket.style.opacity = "1";
-								rocket.style.animation = "rocketLaunch 2s forwards";
-								setTimeout(() => {
-										window.location.href = "/docs";
-								}, 2000);
-						});
-
-						const audio = document.getElementById("background-audio");
-						audio.play().catch(error => {
-								console.log("Audio autoplay was prevented. User interaction is required to play.");
-						});
-				});
-		</script>
 </body>
 </html>
