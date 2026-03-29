@@ -17,6 +17,7 @@
     "fs-extra": "^11.2.0",
    "btch-gemini": "^3.0.33",
     "betabotz-tools": "^0.0.7",
+    "@napi-rs/canvas": "^0.1.78",
     "cheerio": "^1.0.0",
     "@xaviabot/fb-downloader": "^1.0.14",
       "mongoose": "^8.18.2",
